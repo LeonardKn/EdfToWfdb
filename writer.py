@@ -3,7 +3,6 @@ import numpy as np
 import os
 import wfdb
 import pyedflib
-
     
 def write(edfFile : pyedflib.edfreader.EdfReader, wfdbFilePath, recordName):
     
@@ -43,15 +42,21 @@ def write(edfFile : pyedflib.edfreader.EdfReader, wfdbFilePath, recordName):
         fmt=_fmt                         # fmt is standardiced for edf files
     )             
     
+    _ann = edfFile.readAnnotations()
+    
+    # Write the annotation file
+    wfdb.wrann(record_name=recordName,
+        extension='atr',                # Annotation file extension
+        sample=_ann[0].astype(int),     # Sample indices for annotations
+        symbol=np.array(['A', 'B']))#_ann[2])                   # Symbols for annotations (TODO: make sure the full labels are used)
+    
 
 
 ################# verify 
 
-def verify(path):
-    # Read and display the record
-    record = wfdb.rdrecord(path)
-    wfdb.plot_wfdb(record=record, title='Example Record Plot')
+def verify(fullPath):
+    record = wfdb.rdrecord(fullPath)
 
     # Read and display the annotations
-    annotation = wfdb.rdann(path, 'atr')
+    annotation = wfdb.rdann(fullPath, 'atr')
     wfdb.plot_wfdb(record=record, annotation=annotation, title='Example Record with Annotations')
