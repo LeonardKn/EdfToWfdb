@@ -12,6 +12,8 @@ def write(edfFile : pyedflib.edfreader.EdfReader, wfdbFilePath, recordName):
     os.makedirs(wfdbFilePath, exist_ok=True)
     os.chdir(wfdbFilePath)
     
+    sample_number = edfFile.samplefrequency(0) * edfFile.getFileDuration()
+    
     _units = []
     _sigNames = []
     _gain = []
@@ -43,12 +45,21 @@ def write(edfFile : pyedflib.edfreader.EdfReader, wfdbFilePath, recordName):
     )             
     
     _ann = edfFile.readAnnotations()
+    _sample = []
+    
+    #since the annotation positions are stored in seconds in edf and samples in wfdb
+    for s in _ann[0]:
+        sample_index = s * edfFile.samplefrequency(0)
+        sample_index = max(0, min(sample_index, sample_number-1))       #TODO: do we want to keep this -1? Its necessary for the veryfyer to read the file
+        _sample.append(sample_index)
+    
+    _sample = np.array(_sample).astype(int)
     
     # Write the annotation file
     wfdb.wrann(record_name=recordName,
         extension='atr',                # Annotation file extension
-        sample=_ann[0].astype(int),     # Sample indices for annotations
-        symbol=np.array(['A', 'B']))#_ann[2])                   # Symbols for annotations (TODO: make sure the full labels are used)
+        sample=_sample,     # Sample indices for annotations
+        symbol=np.array(['A', 'B']))#_ann[2])                   # Symbols for annotations (TODO: make sure the full labels are used).
     
 
 
