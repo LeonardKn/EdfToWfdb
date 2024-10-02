@@ -14,7 +14,7 @@ def write(edf_file : pyedflib.edfreader.EdfReader, wfdbFilePath, record_name):
     
 # creates the annotation-file containing info about points of interest
 # TODO: Question: It seems like the annotaion labels have a max length of 3 in wfdb (at least the way i am doing it.) 
-# So here i have cut the length of the edf-annotaions down to a length of 3. Is that valid or should i look for another way.
+# So here i have cut the length of the edf-annotaions down to a length of 3. Is that valid or should i look for another way?
 def createAnnotationFile(edf_file: pyedflib.edfreader.EdfReader, record_name):
     _ann = edf_file.readAnnotations()
     _sample = getSampleIndexes(edf_file, _ann)
@@ -72,5 +72,5 @@ def fillHeaArrays(edf_file : pyedflib.edfreader.EdfReader, _units, _sigNames, _g
         _baseline.append(0)
         
         n_gain = (edf_file.getPhysicalMaximum(0) - edf_file.getPhysicalMinimum(0)) / (edf_file.getDigitalMaximum(0) - edf_file.getDigitalMinimum(0))
-        _gain.append(n_gain)#_ann[2])                   # Symbols for annotations (TODO: make sure the full labels are used).
+        _gain.append(n_gain)
     

@@ -1,0 +1,24 @@
+= EDF zu WFDB Konverter
+
+Entwickeln Sie einen Konverter, der EKG Daten vom EDF (European Data Format) in das WFDB Format (MIT Format) konvertiert. Eine Beispiel EDF finden Sie im Anhang. Laden Sie Ihre Lösung bis spätestens Freitag, den 12. November 2021 um 23:59 Uhr in ein GitHub Repository hoch und senden Sie uns den Link hierzu.  
+
+== Anforderungen
+
+- Programmiersprache kann frei gewählt werden
+- Programm muss via Terminal aufgerufen werden können; eine GUI ist nicht erforderlich
+- Als Übergabeparameter soll sowohl die Eingabedatei im EDF Format als auch der Recordname der WFDB Ausgabedateien angegeben werden können z.B. IhrProgramm.exe -i 03215_hr.edf -o 03215_hr
+- Alle Kanäle der EDF sollen in einer einzigen WFDB signal Datei (.dat Datei) abgelegt werden
+- Die Samplingrate, Anzahl der Samples sowie die Signalverstärkung (Gain) der EDF sollen in den WFDB Header übernommen werden
+- Metadaten wie z.B. das Patientenalter müssen nicht konvertiert werden
+- Die Nutzung von Libraries & Frameworks ist erlaubt
+- Zur Vereinfachung können Sie folgende Annahmen treffen
+    - alle Signale / Kanäle des EKGs haben die gleiche Samplingrate und Länge
+    - Baseline und ADC Zero können mit 0 belegt werden
+
+== Hinweise
+
+- Beispiel EKG Dateien im WFDB Format: https://physionet.org/content/ptb-xl/1.0.1/
+- Open Source EDF Viewer "EDF Browser": https://www.teuniz.net/edfbrowser/
+- Spezifikation des EDF Formats: https://www.edfplus.info
+- WFDB Header Spezifikation: https://physionet.org/physiotools/wag/header-5.htm
+- WFDB Signal Spezifikation: https://physionet.org/physiotools/wag/signal-5.htm
