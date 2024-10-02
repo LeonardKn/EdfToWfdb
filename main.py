@@ -16,7 +16,7 @@ def verifyWfdbFile(relative_path):
 #tries to create a wfdb-file from the edf-file and places it in an outp-folder
 def writeWfdbFile(record_name, edf_file):
     try:
-        conv.write(edfFile=edf_file, wfdbFilePath='./wfdb', recordName=record_name)
+        conv.write(edf_file=edf_file, wfdbFilePath='./wfdb', record_name=record_name)
     except Exception as ex:
         print("wfdb files could not be created.")
         print(ex)
